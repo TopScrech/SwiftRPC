@@ -36,12 +36,8 @@ extension SwordRPC {
     }
     
     func receive() {
-        worker.asyncAfter(
-            deadline: .now() + .milliseconds(handlerInterval)
-        ) { [unowned self] in
-            guard
-                let isConnected = socket?.isConnected, isConnected
-            else {
+        worker.asyncAfter(deadline: .now() + .milliseconds(handlerInterval)) { [unowned self] in
+            guard let isConnected = socket?.isConnected, isConnected else {
                 disconnectHandler?(self, nil, nil)
                 delegate?.swordRPCDidDisconnect(self, code: nil, message: nil)
                 return
@@ -76,20 +72,13 @@ extension SwordRPC {
                     free(payloadPtr)
                 }
                 
-                response = try socket?.read(
-                    into: payloadPtr,
-                    bufSize: Int(length),
-                    truncate: true
-                )
+                response = try socket?.read(into: payloadPtr, bufSize: Int(length), truncate: true)
                 
-                guard response! > 0 else {
-                    return
-                }
+                guard response! > 0 else { return }
                 
                 let data = Data(bytes: UnsafeRawPointer(payloadPtr), count: Int(length))
                 
                 handlePayload(op, data)
-                
             } catch {
                 return
             }

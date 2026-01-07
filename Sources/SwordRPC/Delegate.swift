@@ -1,13 +1,7 @@
-public protocol SwordRPCDelegate: class {
-    func swordRPCDidConnect(
-        _ rpc: SwordRPC
-    )
+public protocol SwordRPCDelegate: AnyObject {
+    func swordRPCDidConnect(_ rpc: SwordRPC)
     
-    func swordRPCDidDisconnect(
-        _ rpc: SwordRPC,
-        code: Int?,
-        message msg: String?
-    )
+    func swordRPCDidDisconnect(_ rpc: SwordRPC, code: Int?, message msg: String?)
     
     func swordRPCDidReceiveError(
         _ rpc: SwordRPC,

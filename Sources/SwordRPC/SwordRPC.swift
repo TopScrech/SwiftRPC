@@ -37,10 +37,7 @@ public class SwordRPC {
         self.steamId = steamId
         
         pid = ProcessInfo.processInfo.processIdentifier
-        worker = DispatchQueue(
-            label: "me.azoy.swordrpc.\(pid)",
-            qos: .userInitiated
-        )
+        worker = DispatchQueue(label: "me.azoy.swordrpc.\(pid)", qos: .userInitiated)
         encoder.dateEncodingStrategy = .secondsSince1970
         
         createSocket()
