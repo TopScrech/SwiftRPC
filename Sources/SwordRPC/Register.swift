@@ -8,15 +8,13 @@ import Glibc
 
 extension SwordRPC {
     func createFile(_ name: String, at path: String, with data: String) {
-        let fm = FileManager.default
-        
-        try? fm.createDirectory(
+        try? FileManager.default.createDirectory(
             atPath: NSHomeDirectory() + path,
             withIntermediateDirectories: true,
             attributes: nil
         )
         
-        fm.createFile(
+        FileManager.default.createFile(
             atPath: path + "/" + name,
             contents: data.data(using: .utf8),
             attributes: nil

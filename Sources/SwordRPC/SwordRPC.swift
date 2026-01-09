@@ -25,12 +25,7 @@ public class SwordRPC {
     var spectateGameHandler: ((_ rpc: SwordRPC, _ secret: String) -> ())? = nil
     var joinRequestHandler:  ((_ rpc: SwordRPC, _ request: JoinRequest, _ secret: String) -> ())? = nil
     
-    public init(
-        appId: String,
-        handlerInterval: Int = 1000,
-        autoRegister: Bool = true,
-        steamId: String? = nil
-    ) {
+    public init(appId: String, handlerInterval: Int = 1000, autoRegister: Bool = true, steamId: String? = nil) {
         self.appId = appId
         self.handlerInterval = handlerInterval
         self.autoRegister = autoRegister
@@ -46,12 +41,12 @@ public class SwordRPC {
     }
     
     public func connect() {
-        let tmp = NSTemporaryDirectory()
-        
         guard let socket else {
             print("[SwordRPC] Unable to connect")
             return
         }
+        
+        let tmp = NSTemporaryDirectory()
         
         for i in 0 ..< 10 {
             try? socket.connect(to: "\(tmp)/discord-ipc-\(i)")

@@ -9,9 +9,7 @@ public struct RichPresence: Encodable {
     public var state = ""
     public var timestamps = Timestamps()
     
-    public init() {
-        
-    }
+    public init() {}
 }
 
 extension RichPresence {
@@ -48,9 +46,7 @@ extension RichPresence {
             var container = encoder.container(keyedBy: CodingKeys.self)
             try container.encodeIfPresent(id, forKey: .id)
             
-            guard let max, let size else {
-                return
-            }
+            guard let max, let size else { return }
             
             try container.encode([size, max], forKey: .size)
         }
