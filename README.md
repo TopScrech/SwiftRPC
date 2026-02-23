@@ -1,6 +1,6 @@
-# SwordRPC - A Discord Rich Presence Library for Swift
+# SwiftRPC - A Discord Rich Presence Library for Swift
 
-[![Swift Version](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat-square)](https://swift.org) [![Tag](https://img.shields.io/github/tag/Azoy/SwordRPC.svg?style=flat-square&label=release&colorB=)](https://github.com/Azoy/SwordRPC/releases)
+[![Swift Version](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat-square)](https://swift.org) [![Tag](https://img.shields.io/github/tag/Azoy/SwiftRPC.svg?style=flat-square&label=release&colorB=)](https://github.com/Azoy/SwiftRPC/releases)
 
 ## Requirements
 1. macOS, Linux
@@ -15,20 +15,20 @@ platform :osx, '10.11'
 
 target 'yourappnamehere' do
   use_frameworks!
-  pod 'SwordRPC'
+  pod 'SwiftRPC'
 end
 ```
 
 ## Example
 ### Callbacks
 ```swift
-import SwordRPC
+import SwiftRPC
 
 /// Additional arguments:
 /// handlerInterval: Int = 1000 (decides how fast to check discord for updates, 1000ms = 1s)
 /// autoRegister: Bool = true (automatically registers your application to discord's url scheme (discord-appid://))
 /// steamId: String? = nil (this is for steam games on these platforms)
-let rpc = SwordRPC(appId: "123")
+let rpc = SwiftRPC(appId: "123")
 
 rpc.onConnect { rpc in
   var presence = RichPresence()
@@ -81,45 +81,45 @@ rpc.connect()
 
 ### Delegation
 ```swift
-import SwordRPC
+import SwiftRPC
 
 class ViewController {
   override func viewDidLoad() {
-    let rpc = SwordRPC(appId: "123")
+    let rpc = SwiftRPC(appId: "123")
     rpc.delegate = self
     rpc.connect()
   }
 }
 
-extension ViewController: SwordRPCDelegate {
-  func swordRPCDidConnect(
-    _ rpc: SwordRPC
+extension ViewController: SwiftRPCDelegate {
+  func swiftRPCDidConnect(
+    _ rpc: SwiftRPC
   ) {}
 
-  func swordRPCDidDisconnect(
-    _ rpc: SwordRPC,
+  func swiftRPCDidDisconnect(
+    _ rpc: SwiftRPC,
     code: Int?,
     message msg: String?
   ) {}
 
-  func swordRPCDidReceiveError(
-    _ rpc: SwordRPC,
+  func swiftRPCDidReceiveError(
+    _ rpc: SwiftRPC,
     code: Int,
     message msg: String
   ) {}
 
-  func swordRPCDidJoinGame(
-    _ rpc: SwordRPC,
+  func swiftRPCDidJoinGame(
+    _ rpc: SwiftRPC,
     secret: String
   ) {}
 
-  func swordRPCDidSpectateGame(
-    _ rpc: SwordRPC,
+  func swiftRPCDidSpectateGame(
+    _ rpc: SwiftRPC,
     secret: String
   ) {}
 
-  func swordRPCDidReceiveJoinRequest(
-    _ rpc: SwordRPC,
+  func swiftRPCDidReceiveJoinRequest(
+    _ rpc: SwiftRPC,
     request: JoinRequest,
     secret: String
   ) {}

@@ -4,7 +4,7 @@ import Foundation
 import CoreServices
 #endif
 
-extension SwordRPC {
+extension SwiftRPC {
     func createFile(_ name: String, at path: String, with data: String) {
         try? FileManager.default.createDirectory(
             atPath: NSHomeDirectory() + path,
@@ -34,7 +34,7 @@ extension SwordRPC {
         var response = LSSetDefaultHandlerForURLScheme(scheme, bundleId as CFString)
         
         guard response == 0 else {
-            logError("[SwordRPC] Error creating URL scheme: \(String(describing: response))")
+            logError("[SwiftRPC] Error creating URL scheme: \(String(describing: response))")
             return
         }
         
@@ -42,7 +42,7 @@ extension SwordRPC {
         response = LSRegisterURL(bundleURL, true)
         
         if response != 0 {
-            logError("[SwordRPC] Error registering application: \(String(describing: response))")
+            logError("[SwiftRPC] Error registering application: \(String(describing: response))")
         }
 #else
         return

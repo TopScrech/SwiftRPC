@@ -3,9 +3,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwordRPC",
+    name: "SwiftRPC",
     products: [
-        .library(name: "SwordRPC", targets: ["SwordRPC"])
+        .library(name: "SwiftRPC", targets: ["SwiftRPC"])
     ],
     dependencies: [
         // https://github.com/Kitura/BlueSocket
@@ -13,7 +13,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SwordRPC",
+            name: "SwiftRPC",
             dependencies: [
                 .product(name: "Socket", package: "bluesocket")
             ]

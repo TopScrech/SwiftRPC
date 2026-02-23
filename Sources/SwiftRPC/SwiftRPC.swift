@@ -2,7 +2,7 @@ import Foundation
 import OSLog
 import Socket
 
-public final class SwordRPC: @unchecked Sendable {
+public final class SwiftRPC: @unchecked Sendable {
     // MARK: App Info
     public let appId: String
     public var handlerInterval: Int
@@ -18,13 +18,13 @@ public final class SwordRPC: @unchecked Sendable {
     var presence: RichPresence? = nil
     
     // MARK: Event Handlers
-    public weak var delegate: SwordRPCDelegate? = nil
-    var connectHandler:      ((_ rpc: SwordRPC) -> ())? = nil
-    var disconnectHandler:   ((_ rpc: SwordRPC, _ code: Int?, _ msg: String?) -> ())? = nil
-    var errorHandler:        ((_ rpc: SwordRPC, _ code: Int, _ msg: String) -> ())? = nil
-    var joinGameHandler:     ((_ rpc: SwordRPC, _ secret: String) -> ())? = nil
-    var spectateGameHandler: ((_ rpc: SwordRPC, _ secret: String) -> ())? = nil
-    var joinRequestHandler:  ((_ rpc: SwordRPC, _ request: JoinRequest, _ secret: String) -> ())? = nil
+    public weak var delegate: SwiftRPCDelegate? = nil
+    var connectHandler:      ((_ rpc: SwiftRPC) -> ())? = nil
+    var disconnectHandler:   ((_ rpc: SwiftRPC, _ code: Int?, _ msg: String?) -> ())? = nil
+    var errorHandler:        ((_ rpc: SwiftRPC, _ code: Int, _ msg: String) -> ())? = nil
+    var joinGameHandler:     ((_ rpc: SwiftRPC, _ secret: String) -> ())? = nil
+    var spectateGameHandler: ((_ rpc: SwiftRPC, _ secret: String) -> ())? = nil
+    var joinRequestHandler:  ((_ rpc: SwiftRPC, _ request: JoinRequest, _ secret: String) -> ())? = nil
     
     public init(appId: String, handlerInterval: Int = 1000, autoRegister: Bool = true, steamId: String? = nil) {
         self.appId = appId
@@ -33,7 +33,7 @@ public final class SwordRPC: @unchecked Sendable {
         self.steamId = steamId
         
         pid = ProcessInfo.processInfo.processIdentifier
-        worker = DispatchQueue(label: "me.azoy.swordrpc.\(pid)", qos: .userInitiated)
+        worker = DispatchQueue(label: "me.azoy.swiftrpc.\(pid)", qos: .userInitiated)
         encoder.dateEncodingStrategy = .secondsSince1970
         
         createSocket()
@@ -42,7 +42,7 @@ public final class SwordRPC: @unchecked Sendable {
     
     public func connect() {
         guard let socket else {
-            logError("[SwordRPC] Unable to connect")
+            logError("[SwiftRPC] Unable to connect")
             return
         }
         
@@ -63,7 +63,7 @@ public final class SwordRPC: @unchecked Sendable {
             }
         }
         
-        logError("[SwordRPC] Discord not detected")
+        logError("[SwiftRPC] Discord not detected")
     }
     
     public func setPresence(_ presence: RichPresence) {

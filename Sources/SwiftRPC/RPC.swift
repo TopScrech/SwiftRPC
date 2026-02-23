@@ -1,18 +1,18 @@
 import Foundation
 import Socket
 
-extension SwordRPC {
+extension SwiftRPC {
     func createSocket() {
         do {
             socket = try Socket.create(family: .unix, proto: .unix)
             try socket?.setBlocking(mode: false)
         } catch {
             guard let error = error as? Socket.Error else {
-                logError("[SwordRPC] Unable to create rpc socket")
+                logError("[SwiftRPC] Unable to create rpc socket")
                 return
             }
             
-            logError("[SwordRPC] Error creating rpc socket: \(String(describing: error))")
+            logError("[SwiftRPC] Error creating rpc socket: \(String(describing: error))")
         }
     }
     
@@ -39,7 +39,7 @@ extension SwordRPC {
         worker.asyncAfter(deadline: .now() + .milliseconds(handlerInterval)) { [unowned self] in
             guard let isConnected = socket?.isConnected, isConnected else {
                 disconnectHandler?(self, nil, nil)
-                delegate?.swordRPCDidDisconnect(self, code: nil, message: nil)
+                delegate?.swiftRPCDidDisconnect(self, code: nil, message: nil)
                 return
             }
             
@@ -96,7 +96,7 @@ extension SwordRPC {
             
             try send(json, .handshake)
         } catch {
-            logError("[SwordRPC] Unable to handshake with Discord")
+            logError("[SwiftRPC] Unable to handshake with Discord")
             socket?.close()
         }
     }
@@ -121,7 +121,7 @@ extension SwordRPC {
             let message = data["message"] as! String
             socket?.close()
             disconnectHandler?(self, code, message)
-            delegate?.swordRPCDidDisconnect(self, code: code, message: message)
+            delegate?.swiftRPCDidDisconnect(self, code: code, message: message)
             
         case .ping:
             try? send(String(data: json, encoding: .utf8)!, .pong)
@@ -149,12 +149,12 @@ extension SwordRPC {
             let code = data["code"] as! Int
             let message = data["message"] as! String
             errorHandler?(self, code, message)
-            delegate?.swordRPCDidReceiveError(self, code: code, message: message)
+            delegate?.swiftRPCDidReceiveError(self, code: code, message: message)
             
         case .join:
             let secret = data["secret"] as! String
             joinGameHandler?(self, secret)
-            delegate?.swordRPCDidJoinGame(self, secret: secret)
+            delegate?.swiftRPCDidJoinGame(self, secret: secret)
             
         case .joinRequest:
             let requestData = data["user"] as! [String: Any]
@@ -165,17 +165,17 @@ extension SwordRPC {
             
             let secret = data["secret"] as! String
             joinRequestHandler?(self, joinRequest, secret)
-            delegate?.swordRPCDidReceiveJoinRequest(self, request: joinRequest, secret: secret)
+            delegate?.swiftRPCDidReceiveJoinRequest(self, request: joinRequest, secret: secret)
             
         case .ready:
             connectHandler?(self)
-            delegate?.swordRPCDidConnect(self)
+            delegate?.swiftRPCDidConnect(self)
             updatePresence()
             
         case.spectate:
             let secret = data["secret"] as! String
             spectateGameHandler?(self, secret)
-            delegate?.swordRPCDidSpectateGame(self, secret: secret)
+            delegate?.swiftRPCDidSpectateGame(self, secret: secret)
         }
     }
     

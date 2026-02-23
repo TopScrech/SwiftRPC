@@ -1,6 +1,6 @@
 import Foundation
 
-extension SwordRPC {
+extension SwiftRPC {
     func encode(_ value: Any) -> Data {
         do {
             return try JSONSerialization.data(withJSONObject: value, options: [])
