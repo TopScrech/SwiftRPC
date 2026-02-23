@@ -6,6 +6,9 @@
 1. macOS, Linux
 2. Swift 6+
 
+> [!WARNING]
+> RPC will not work in sandboxed apps
+
 ## Adding SwordRP
 ### CocoaPods
 Edit your Podfile to add this dependency:
