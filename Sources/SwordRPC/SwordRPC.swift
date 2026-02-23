@@ -48,7 +48,7 @@ public final class SwordRPC: @unchecked Sendable {
         
         let tmp = NSTemporaryDirectory()
         
-        for i in 0 ..< 10 {
+        for i in 0..<10 {
             try? socket.connect(to: "\(tmp)/discord-ipc-\(i)")
             
             guard !socket.isConnected else {
@@ -86,8 +86,8 @@ public final class SwordRPC: @unchecked Sendable {
     }
     
     func logError(_ message: String) {
-        if #available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, *) {
-            Logger().error("\(message, privacy: .public)")
+        if #available(macOS 11, iOS 14, tvOS 14, watchOS 7, *) {
+            Logger().error("\(message)")
         }
     }
 }

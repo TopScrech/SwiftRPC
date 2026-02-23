@@ -38,8 +38,8 @@ extension SwordRPC {
             return
         }
         
-        let bundleUrl = Bundle.main.bundleURL as CFURL
-        response = LSRegisterURL(bundleUrl, true)
+        let bundleURL = Bundle.main.bundleURL as CFURL
+        response = LSRegisterURL(bundleURL, true)
         
         if response != 0 {
             logError("[SwordRPC] Error registering application: \(String(describing: response))")

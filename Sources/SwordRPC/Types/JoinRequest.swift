@@ -5,9 +5,6 @@ public struct JoinRequest: Decodable {
     public let username: String
     
     enum CodingKeys: String, CodingKey {
-        case avatar,
-             discriminator,
-             userId = "id",
-             username
+        case avatar, discriminator, userId = "id", username
     }
 }
