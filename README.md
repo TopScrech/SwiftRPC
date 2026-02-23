@@ -1,7 +1,5 @@
 # SwiftRPC - Discord Rich Presence Library written in Swift
 
-[![Swift Version](https://img.shields.io/badge/Swift-6.0-orange.svg?style=flat-square)](https://swift.org) [![Tag](https://img.shields.io/github/tag/TopScrech/SwiftRPC.svg?style=flat-square&label=release&colorB=)](https://github.com/TopScrech/SwiftRPC/releases)
-
 ## Requirements
 1. macOS, Linux
 2. Swift 6+
