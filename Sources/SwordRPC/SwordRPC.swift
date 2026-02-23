@@ -2,7 +2,7 @@ import Foundation
 import OSLog
 import Socket
 
-public class SwordRPC {
+public final class SwordRPC: @unchecked Sendable {
     // MARK: App Info
     public let appId: String
     public var handlerInterval: Int

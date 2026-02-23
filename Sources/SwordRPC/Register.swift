@@ -1,9 +1,7 @@
 import Foundation
 
-#if !os(Linux)
+#if os(macOS)
 import CoreServices
-#else
-import Glibc
 #endif
 
 extension SwordRPC {
@@ -22,7 +20,7 @@ extension SwordRPC {
     }
     
     func registerUrl() {
-#if !os(Linux)
+#if os(macOS)
         guard steamId == nil else {
             registerSteamGame()
             return
@@ -47,51 +45,11 @@ extension SwordRPC {
             logError("[SwordRPC] Error registering application: \(String(describing: response))")
         }
 #else
-        var execPath = ""
-        
-        if let steamId {
-            execPath = "xdg-open steam://rungameid/\(steamId)"
-        }else {
-            let exec = UnsafeMutablePointer<Int8>.allocate(capacity: Int(PATH_MAX) + 1)
-            
-            defer {
-                free(exec)
-            }
-            
-            let n = readLink("/proc/self/exe", exec, Int(PATH_MAX))
-            
-            guard n >= 0 else {
-                logError("[SwordRPC] Error getting game's execution path")
-                return
-            }
-            
-            exec[n] = 0
-            execPath = String(cString: exec)
-        }
-        
-        createFile(
-            "discord-\(appId).desktop",
-            at: "/.local/share/applications",
-            with: """
-      [Desktop Entry]
-      Name=Game \(appId)
-      Exec=\(execPath) %u
-      Type=Application
-      NoDisplay=true
-      Categories=Discord;Games;
-      MimeType=x-scheme-handler/discord-\(appId)
-      """
-        )
-        
-        let command = "xdg-mime default discord-\(appId).desktop x-scheme-handler/discord-\(appId)"
-        
-        if system(command) < 0 {
-            logError("[SwordRPC] Error registering URL scheme")
-        }
+        return
 #endif
     }
     
-#if !os(Linux)
+#if os(macOS)
     func registerSteamGame() {
         createFile(
             "\(appId).json",
