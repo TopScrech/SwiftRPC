@@ -36,7 +36,7 @@ extension SwordRPC {
         var response = LSSetDefaultHandlerForURLScheme(scheme, bundleId as CFString)
         
         guard response == 0 else {
-            print("[SwordRPC] Error creating URL scheme: \(response)")
+            logError("[SwordRPC] Error creating URL scheme: \(String(describing: response))")
             return
         }
         
@@ -44,7 +44,7 @@ extension SwordRPC {
         response = LSRegisterURL(bundleUrl, true)
         
         if response != 0 {
-            print("[SwordRPC] Error registering application: \(response)")
+            logError("[SwordRPC] Error registering application: \(String(describing: response))")
         }
 #else
         var execPath = ""
@@ -61,7 +61,7 @@ extension SwordRPC {
             let n = readLink("/proc/self/exe", exec, Int(PATH_MAX))
             
             guard n >= 0 else {
-                print("[SwordRPC] Error getting game's execution path")
+                logError("[SwordRPC] Error getting game's execution path")
                 return
             }
             
@@ -86,7 +86,7 @@ extension SwordRPC {
         let command = "xdg-mime default discord-\(appId).desktop x-scheme-handler/discord-\(appId)"
         
         if system(command) < 0 {
-            print("[SwordRPC] Error registering URL scheme")
+            logError("[SwordRPC] Error registering URL scheme")
         }
 #endif
     }

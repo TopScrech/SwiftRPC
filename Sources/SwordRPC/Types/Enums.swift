@@ -1,9 +1,5 @@
 enum OP: UInt32 {
-    case handshake,
-         frame,
-         close,
-         ping,
-         pong
+    case handshake, frame, close, ping, pong
 }
 
 enum Event: String {
@@ -15,7 +11,5 @@ enum Event: String {
 }
 
 public enum JoinReply: Int {
-    case no,
-         yes,
-         ignore
+    case no, yes, ignore
 }

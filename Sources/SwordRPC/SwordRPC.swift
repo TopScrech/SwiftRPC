@@ -1,4 +1,5 @@
 import Foundation
+import OSLog
 import Socket
 
 public class SwordRPC {
@@ -36,13 +37,12 @@ public class SwordRPC {
         encoder.dateEncodingStrategy = .secondsSince1970
         
         createSocket()
-        
         registerUrl()
     }
     
     public func connect() {
         guard let socket else {
-            print("[SwordRPC] Unable to connect")
+            logError("[SwordRPC] Unable to connect")
             return
         }
         
@@ -63,7 +63,7 @@ public class SwordRPC {
             }
         }
         
-        print("[SwordRPC] Discord not detected")
+        logError("[SwordRPC] Discord not detected")
     }
     
     public func setPresence(_ presence: RichPresence) {
@@ -83,5 +83,11 @@ public class SwordRPC {
         """
         
         try? send(json, .frame)
+    }
+    
+    func logError(_ message: String) {
+        if #available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, *) {
+            Logger().error("\(message, privacy: .public)")
+        }
     }
 }

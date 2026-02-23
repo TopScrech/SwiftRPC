@@ -8,11 +8,11 @@ extension SwordRPC {
             try socket?.setBlocking(mode: false)
         } catch {
             guard let error = error as? Socket.Error else {
-                print("[SwordRPC] Unable to create rpc socket")
+                logError("[SwordRPC] Unable to create rpc socket")
                 return
             }
             
-            print("[SwordRPC] Error creating rpc socket: \(error)")
+            logError("[SwordRPC] Error creating rpc socket: \(String(describing: error))")
         }
     }
     
@@ -96,7 +96,7 @@ extension SwordRPC {
             
             try send(json, .handshake)
         } catch {
-            print("[SwordRPC] Unable to handshake with Discord")
+            logError("[SwordRPC] Unable to handshake with Discord")
             socket?.close()
         }
     }
