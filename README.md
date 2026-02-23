@@ -20,6 +20,9 @@ end
 ```
 
 ## Example
+
+Check out the [demo project](https://github.com/TopScrech/SwiftRPC-Sandbox)
+
 ### Callbacks
 ```swift
 import SwiftRPC
