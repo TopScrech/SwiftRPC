@@ -4,7 +4,7 @@
 
 ## Requirements
 1. macOS, Linux
-2. Swift 4.0
+2. Swift 6+
 
 ## Adding SwordRP
 ### CocoaPods
