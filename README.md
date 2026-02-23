@@ -1,4 +1,4 @@
-# SwiftRPC - A Discord Rich Presence Library for Swift
+# SwiftRPC - Discord Rich Presence Library written in Swift
 
 [![Swift Version](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat-square)](https://swift.org) [![Tag](https://img.shields.io/github/tag/Azoy/SwiftRPC.svg?style=flat-square&label=release&colorB=)](https://github.com/Azoy/SwiftRPC/releases)
 
